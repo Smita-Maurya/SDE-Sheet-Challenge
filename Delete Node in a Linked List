@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void helper(ListNode* head , ListNode* node){
+        if(head==NULL){
+            return;
+        }
+        if(head->next==NULL){
+            ListNode* todelete = head;
+            head = head->next;
+            delete todelete;
+        }
+        ListNode* temp = head;
+        while(temp->next!=node){
+            temp = temp->next;
+        }
+        ListNode * todelete = temp->next;
+        temp->next = temp->next->next;
+        delete todelete;
+        cout<< head<<endl;;
+    }
+    void deleteNode(ListNode* node) {
+        ListNode * next = node->next;
+        *node = *next;
+        delete next;
+       }
+};
