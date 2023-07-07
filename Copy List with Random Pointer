@@ -1,0 +1,33 @@
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+       
+       if(head==NULL){
+           return NULL;
+       }
+       Node*curr=head;
+       while(curr!=NULL){
+           Node*tem=curr->next;
+           curr->next=new Node(curr->val);
+           curr->next->next=tem;
+           curr=tem;
+       }
+       for(Node*curr=head ; curr!=NULL ; curr=curr->next->next){
+        curr->next->random=curr->random ?curr->random->next :NULL;
+       }
+       Node*temp=head->next;
+       Node*original=head;
+       Node*copy =head->next;
+
+       while(copy!=NULL && original!=NULL){
+           original->next=original->next ?original->next->next :original->next;
+           copy->next=copy->next ?copy->next->next : copy->next;
+        original=original->next;
+        copy=copy->next;   
+       }
+
+       return temp;
+        
+
+    }
+};
