@@ -1,0 +1,28 @@
+class Solution 
+{
+    public:
+    static bool helper(Job a , Job b){
+        return a.profit>b.profit;
+    }
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        //vector<int> dp(2 , 0);
+        //int m=arr.size();
+        sort(arr , arr+n , helper);
+        bool res[n]={0};
+        int count=0;
+        int prof=0;
+        for(int i=0; i<n ; i++){
+            for(int j= arr[i].dead-1 ;j>=0 ; j-- ){
+                if(res[j]==false){
+                    count++;
+                    prof+=arr[i].profit;
+                    res[j]=true;
+                    break;
+                }
+            }
+        }
+        return {count , prof};
+    } 
+};
