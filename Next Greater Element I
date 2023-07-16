@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int>ans;
+        bool chk = false;
+        int n1=nums1.size();
+        int n2=nums2.size();
+        if(n1==0 || n2==0){
+            ans.push_back(-1);
+        }
+        for(int i=0; i<n1 ; i++){
+            for(int j=0; j<n2 ; j++){
+            if(nums1[i]==nums2[j]){
+                if(j==n2-1){
+                    ans.push_back(-1);
+                }
+                else{
+                    chk=false;
+                    for(int k=j+1; k<n2 ; k++){
+                    if(nums2[k]>nums2[j]){
+                    ans.push_back(nums2[k]);
+                     chk=true;
+                    break;
+                    }
+                }
+                if(chk==false){
+                    ans.push_back(-1);
+                    break;
+                }
+                }
+                
+                
+            }
+            
+            }
+
+        }
+        return ans;
+    }
+};
