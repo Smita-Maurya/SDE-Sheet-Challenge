@@ -1,0 +1,30 @@
+class MedianFinder {
+public:
+multiset<double>v;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+       v.insert(num); 
+    }
+    
+    double findMedian() {
+       int n=v.size();
+      int k=(n-1)/2;
+     
+      auto it=v.begin();
+       advance(it , k);
+       double ans=*it;
+       if(n%2==0){
+           if(++it!=v.end()){
+           ans+= *it;
+           ans=ans/2;
+           }
+       } 
+       return ans;
+       
+    }
+};
+
+ 
