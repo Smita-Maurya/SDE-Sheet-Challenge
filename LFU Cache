@@ -1,0 +1,64 @@
+class LFUCache {
+
+public:
+unordered_map<int , pair<int , int>>map;
+vector<deque<int>>counter;
+int maxsize , numele;
+void increment(int key){
+    map[key].second++;
+    while(counter.size()<=cache[key].second){
+        counter.push_back(deque<int>());
+    }
+    counter[map[key].second].push_back(key);
+}
+
+void remove_LFU_ele(){
+    bool success=false;
+    for(int i=0; i<counter.size && !success ; i++){
+        while(!counter[i].empty() && !success){
+            if(map[counter[i].front()].second==i){
+                success=true;
+                map.erase(counter[i].front());
+                numele--;
+            }
+            counter[i].pop_front();
+        }
+    }
+}
+
+    LFUCache(int capacity) {
+        maxsize=capacity;
+        numele=0;
+        counter={{}};
+    }
+    
+    int get(int key) {
+        if(map.find(key)==map.end()){
+            return -1;
+        }
+        increment(key);
+        //l.splice(l.begin() , l ,map[key]);
+        return map[key]->first;
+    }
+
+    
+    void put(int key, int value) {
+        if(maxsize==0){
+            return;
+        }
+        if(map.find(key)!=map.end()){
+            map[key]->first=value;
+            return;
+        }
+        if(numele==maxsize){
+ 
+        remove_LFU_element();
+
+
+        }`  
+        map[key]=make_pair(value , 0);
+        counter[0].push_back(key);
+        numele++;
+
+    }
+};
