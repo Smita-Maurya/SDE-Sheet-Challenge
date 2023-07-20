@@ -1,0 +1,26 @@
+class Solution {
+public:
+string helper(int n , string s){
+    if(n==0){
+        return s;
+    }
+    string temp="";
+    int count=1;
+    char prev=s[0];
+    for(int i=1; i<s.size() ; i++){
+        if(prev==s[i]){
+            count++;
+        }
+        else{
+            temp=(temp+(char)(count+'0'))+prev;
+            count=1;
+            prev=s[i];
+        }
+    }
+    temp=(temp+(char)(count+'0'))+prev;
+    return helper(n-1 ,temp);
+}
+    string countAndSay(int n) {
+       return helper(n-1 , "1");
+    }
+};
