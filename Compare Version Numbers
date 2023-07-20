@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        int n1=version1.size();
+        int n2=version2.size();
+        int i=0;
+        int j=0;
+
+        while(true){
+        int temp=0;
+        int temp2=0;
+        while(i<n1 && version1[i]!='.'){
+ 
+             temp=temp*10+(version1[i]-'0');
+             i++;
+            
+        }
+        
+        while(j<n2 && version2[j]!='.'){
+            
+            temp2=temp2*10 + (version2[j]-'0');
+            j++;
+            
+        }
+        if(temp< temp2){
+            return -1;
+        }
+        if(temp > temp2){
+            return 1;
+        }
+        if(i>=n1 && j>=n2){
+            //return -1;
+            break;
+        }
+        i++;
+        j++;
+        }
+        return 0;
+    }
+};
