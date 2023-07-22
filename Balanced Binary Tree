@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int height(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        int lefth = height(root->left);
+        int righth = height(root->right);
+        if(lefth==-1 || righth==-1){
+            return -1;
+        }
+        if(abs(lefth-righth)>1){
+            return -1;
+        }
+        if(lefth>righth){
+        return lefth+1;
+        }else{
+        return righth+1;
+        }
+    }
+    bool isBalanced(TreeNode* root) {
+ 
+        return height(root)!=-1;
+    }
+};
