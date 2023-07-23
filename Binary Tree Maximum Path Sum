@@ -1,0 +1,28 @@
+class Solution {
+public:
+int helper(TreeNode* root , int &res){
+if(root==NULL){
+    return 0;
+}
+
+int l=helper(root->left , res);
+       int r= helper(root->right , res);
+
+       int sel1= max(max(l , r) +root->val , root->val);
+
+       int sel2= max(sel1 , l+r+root->val);
+    res =max(res , sel2);
+       return sel1;
+}
+    int maxPathSum(TreeNode* root) {
+         
+        if(root==NULL){
+            return 0;
+        }
+ 
+    int res=INT_MIN;
+
+    helper(root , res);
+    return res;
+    }
+};
