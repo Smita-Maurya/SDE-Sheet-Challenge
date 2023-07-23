@@ -1,0 +1,38 @@
+class Solution {
+public:
+    TreeNode* helper(vector<int>&preorder , int pres ,int pree, vector<int>&inorder , int ins , int ine){
+        if(ins>ine){
+            return NULL;
+        }
+        int rootdata = preorder[pres];
+        int index = -1;
+        for(int i=ins; i<=ine ; i++){
+            if(inorder[i]==rootdata){
+                index= i;
+                break;
+                
+            }
+        }
+        int lpres=pres+1;
+        
+        
+        int rpree= pree;
+        int lins = ins;
+        int line= index-1;
+        int rins = index+1;
+        int rine= ine;
+        int lpree=line-lins+lpres;
+        int rpres=lpree+1;
+        TreeNode* root = new TreeNode(rootdata);
+        root->left = helper(preorder ,lpres ,lpree , inorder ,lins ,line);
+        root->right= helper(preorder , rpres ,rpree ,inorder ,rins ,rine);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int size = preorder.size();
+        //int inlength= inorder.size();
+        return helper(preorder , 0 , size-1, inorder , 0 , size-1);
+
+        
+    }
+};
