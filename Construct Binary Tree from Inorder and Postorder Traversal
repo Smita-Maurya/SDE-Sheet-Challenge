@@ -1,0 +1,33 @@
+class Solution {
+public:
+    TreeNode* helper(vector<int>&inorder , int ins ,int ine , vector<int>&postorder,int poss, int pose){
+        if(ins>ine){
+            return NULL;
+        }
+        int rootdata= postorder[pose];
+        int index = -1;
+        for(int i=ins; i<=ine ; i++){
+            if(inorder[i]==rootdata){
+                index=i;
+                break;
+            }
+        }
+        int lins= ins;
+        int line= index-1;
+        int rins= index+1;
+        int rine = ine;
+        int lposs= poss;
+        int lpose= line-lins+lposs;
+        int rposs= lpose+1;
+        int rpose= pose-1;
+        TreeNode*root = new TreeNode(rootdata);
+        root->left = helper(inorder , lins , line , postorder , lposs , lpose);
+        root->right = helper(inorder , rins , rine , postorder , rposs , rpose );
+        return root; 
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int size= inorder.size();
+        return helper(inorder , 0 , size-1 , postorder , 0, size-1);
+        
+    }
+};
