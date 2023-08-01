@@ -1,0 +1,28 @@
+class Solution {
+public:
+int dp[10001];
+int helper(vector<int>&coins , int amount){
+    if(amount==0){
+        return 0;
+    }
+    if(dp[amount]!=-1){
+        return dp[amount];
+    }
+    int ans=1e9;
+    for(auto x:coins){
+        if(x<=amount){
+         ans=min(ans  , helper(coins , amount-x)+1);
+        }
+    }
+    dp[amount]=ans;
+    return ans;
+}
+    int coinChange(vector<int>& coins, int amount) {
+        memset(dp , -1 ,sizeof(dp));
+        int count=helper(coins , amount);
+        if(count>=1e9){
+            return -1;
+        }
+        return count;
+    }
+};
