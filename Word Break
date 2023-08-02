@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n=s.size();
+        //int m=wordDict.size();
+        vector<bool>dp(n+1 , false);
+        dp[0]=true;
+
+        for(int i=0; i<n ; i++){
+            for(auto x:wordDict){
+                int l=x.size();
+                if(i-l>=-1 && dp[i-l+1]){
+                    bool success=true;
+                    for(int j=0; j<l ; j++){
+                        if(s[i-l+1+j]!=x[j]){
+                            success=false;
+                            break;
+                        }
+                    }
+                    if(success==true){
+                        dp[i+1]=true;
+                    }
+                }
+            }
+        }
+        return dp[s.size()];
+    }
+};
