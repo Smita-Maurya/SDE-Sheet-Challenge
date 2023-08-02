@@ -1,0 +1,72 @@
+class TrieNode{
+    public:
+    bool isword;
+    TrieNode*child[26];
+    TrieNode(){
+        isword=false;
+        for(auto &a:child){
+            a=NULL;
+        }
+    }
+};
+
+class Trie {
+
+public:
+TrieNode*root;
+    /** Initialize your data structure here. */
+    Trie() {
+    root = new TrieNode();
+    }
+
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+      TrieNode*p=root;
+      for(auto &a:word){
+          int i=a-'a';
+          if(!p->child[i]){
+              p->child[i]=new TrieNode();
+          }
+          p=p->child[i];
+      }
+      p->isword=true;
+    }
+
+    /** Returns if the word is in the trie. */
+    bool search(string word , bool prefix=false) {
+      TrieNode*p=root;
+      for(auto &a:word){
+          int i=a-'a';
+          if(!p->child[i]){
+              return false;
+          }
+          p=p->child[i];
+      }
+      if(prefix==false){
+          return p->isword;
+      }
+      return true;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+      return search(prefix , true);
+    }
+};
+int countDistinctSubstrings(string &s)
+{
+    Trie a;
+    int count=1;
+    for(int i=0 ; i<s.size() ; i++){
+      for(int j=1; j<=s.size()-1 ; j++){
+          string str=s.substr(i , j);
+          if(!a.search(str,false)){
+              a.insert(str);
+              count++;
+          }
+      }
+    }
+    return count+1;
+
+     
+}
