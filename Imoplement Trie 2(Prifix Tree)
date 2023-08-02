@@ -1,0 +1,83 @@
+#include <bits/stdc++.h> 
+class TrieNode{
+    public:
+    bool isword;
+    TrieNode*child[26];
+    TrieNode(){
+        isword=false;
+        for(auto &a:child){
+            a=NULL;
+        }
+    }
+};
+class Trie{
+
+    public:
+    TrieNode*root;
+    Trie(){
+       
+        root=new TrieNode();
+    }
+
+    void insert(string &word){
+        // Write your code here.
+        TrieNode*p=root;
+        for(auto &a:word){
+            int i=a-'a';
+            if(!p->child[i]){
+                p->child[i]=new TrieNode();
+            }
+            p=p->child[i];
+        }
+        p->isword=true;
+    }
+
+    int countWordsEqualTo(string &word , bool prefix=false){
+        // Write your code here.
+        TrieNode*p=root;
+        int count=0;
+        for(auto &a:word){
+            int i=a-'a';
+            if(!p->child[i]){
+              return 0;
+            }
+            p=p->child[i];
+        }
+        if(prefix==false){
+            if(p->isword==true){
+                count++;
+            }
+        }
+        else{
+            count++;
+        }
+        return count;
+    }
+
+    int countWordsStartingWith(string &word){
+        // Write your code here.
+       return countWordsEqualTo( word , true);
+    }
+
+    void erase(string &word){
+        TrieNode*p=root;
+        for(auto &a:word){
+            int i=a-'a';
+            if(!p->child[i]){
+                p->child[i]=new TrieNode;
+            }
+            else{
+                return;
+            }
+        }
+        if(p->isword==false){
+            for(auto &a:word){
+                if(!p->child[a]){
+                    return;
+                }
+            }
+        }
+        delete p->child[word[0]];
+        
+    }
+};
